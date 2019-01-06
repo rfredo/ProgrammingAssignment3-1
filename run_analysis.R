@@ -56,5 +56,7 @@ names(train_testmeansd) <- sapply(names(train_testmeansd), rename_labels)
 names(train_testmeansd) <- sapply(names(train_testmeansd), remove_parentheses)
 
 #group and summarize mean values for all variables for subjects and for activities
-meanby_sub_act <- train_testmeansd %>% group_by(subject_id, activity_name) %>% summarize_all(funs(mean))
-names(meanby_sub_act) <- c(names(meanby_sub_act[c(1,2)]), paste0("average-", names(meanby_sub_act[3:length(names(meanby_sub_act))])))
+final_tidy_data <- train_testmeansd %>% group_by(subject_id, activity_name) %>% summarize_all(funs(mean))
+names(final_tidy_data) <- c(names(final_tidy_data[c(1,2)]), paste0("average-", names(final_tidy_data[3:length(names(final_tidy_data))])))
+
+write.table(final_tidy_data, "final_tidy_data.txt", row.names = FALSE)
